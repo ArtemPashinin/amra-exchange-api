@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FinancialModel } from './models/financial.model';
 import { CurrencyModel } from './models/currency.model';
-import { FinancialTypeModel } from './models/financial-type.model';
 import { Op } from 'sequelize';
 
 @Injectable()
@@ -13,10 +12,10 @@ export class FinancialService {
   ) {}
 
   async findAll(excludeId?: number, type?: string): Promise<FinancialModel[]> {
-    const whereCondition = excludeId ? { id: { [Op.ne]: excludeId } } : {};
+    const whereCondition : any= excludeId ? { id: { [Op.ne]: excludeId } } : {};
 
     if (type) {
-      whereCondition['$type.type$'] = type;
+      whereCondition.type = type
     }
 
     return await this.financialModel.findAll({
@@ -27,14 +26,9 @@ export class FinancialService {
           required: true,
           attributes: { exclude: ['id'] },
         },
-        {
-          model: FinancialTypeModel,
-          required: true,
-          attributes: { exclude: ['id'] },
-        },
       ],
       attributes: {
-        exclude: ['financialTypeId', 'currencyId'],
+        exclude: ['currencyId'],
       },
     });
   }
@@ -42,7 +36,7 @@ export class FinancialService {
   async findOne(id: number): Promise<FinancialModel> {
     return await this.financialModel.findOne({
       where: { id: { [Op.eq]: id } },
-      attributes: { exclude: ['currencyId', 'financialTypeId'] },
+      attributes: { exclude: ['currencyId'] },
     });
   }
 }

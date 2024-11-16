@@ -38,15 +38,13 @@ export class ExchangeModel extends Model {
   @Column({ type: DataType.INTEGER, allowNull: false })
   exchangeRateId!: number;
 
+  @ForeignKey(() => CourseExchangeModel)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  displayedExchangeRateId!: number;
+
+  @BelongsTo(() => CourseExchangeModel, 'displayedExchangeRateId')
+  displayedCourseExchange!: CourseExchangeModel;
+
   @BelongsTo(() => CourseExchangeModel, 'exchangeRateId')
   courseExchange!: CourseExchangeModel;
-
-  @Column({ type: DataType.DECIMAL, allowNull: false })
-  upperLimit!: number;
-
-  @Column({ type: DataType.DECIMAL, allowNull: false })
-  lowerLimit!: number;
-
-  @Column({ type: DataType.DECIMAL, allowNull: false })
-  fee!: number;
 }

@@ -10,7 +10,6 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { CurrencyModel } from './currency.model';
-import { FinancialTypeModel } from './financial-type.model';
 
 @Table({ tableName: 'Financial', timestamps: false })
 export class FinancialModel extends Model {
@@ -28,18 +27,14 @@ export class FinancialModel extends Model {
   currencyName!: string;
 
   @NotNull
+  @Column({type: DataType.CHAR(16), allowNull: false})
+  type!: string;
+
+  @NotNull
   @ForeignKey(() => CurrencyModel)
   @Column({ type: DataType.INTEGER, allowNull: false })
   currencyId!: number;
 
-  @NotNull
-  @ForeignKey(() => FinancialTypeModel)
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  financialTypeId!: number;
-
   @BelongsTo(() => CurrencyModel)
   currency!: CurrencyModel;
-
-  @BelongsTo(() => FinancialTypeModel)
-  type!: FinancialTypeModel;
 }

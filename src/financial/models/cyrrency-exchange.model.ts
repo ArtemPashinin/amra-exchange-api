@@ -22,17 +22,17 @@ export class CourseExchangeModel extends Model {
 
   @ForeignKey(() => CurrencyModel)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  firstCurrencyId!: number;
+  sourceCurrencyId!: number;
 
-  @BelongsTo(() => CurrencyModel, 'firstCurrencyId')
-  firstCurrency!: CurrencyModel;
+  @BelongsTo(() => CurrencyModel, 'sourceCurrencyId')
+  sourceCurrency!: CurrencyModel;
 
   @ForeignKey(() => CurrencyModel)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  secondCurrencyId!: number;
+  targetCurrencyId!: number;
 
-  @BelongsTo(() => CurrencyModel, 'secondCurrencyId')
-  secondCurrency!: CurrencyModel;
+  @BelongsTo(() => CurrencyModel, 'targetCurrencyId')
+  targetCurrency!: CurrencyModel;
 
   @Default(0.0)
   @Column({ type: DataType.DECIMAL(10, 4), allowNull: false })

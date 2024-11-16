@@ -3,7 +3,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { CurrencyModel } from './models/currency.model';
 import { FinancialModel } from './models/financial.model';
 import { ExchangeModel } from './models/financial-exchange.model';
-import { FinancialTypeModel } from './models/financial-type.model';
 import { CourseExchangeModel } from './models/cyrrency-exchange.model';
 import { FinancialController } from './financial.controller';
 import { ConfigModule } from '@nestjs/config';
@@ -20,7 +19,6 @@ import { BotModule } from 'src/bot/bot.module';
       CurrencyModel,
       FinancialModel,
       ExchangeModel,
-      FinancialTypeModel,
       CourseExchangeModel,
     ]),
     UserModule,

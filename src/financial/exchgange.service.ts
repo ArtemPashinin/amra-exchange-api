@@ -4,7 +4,7 @@ import { ExchangeModel } from './models/financial-exchange.model';
 import { FinancialModel } from './models/financial.model';
 import { CourseExchangeModel } from './models/cyrrency-exchange.model';
 import { CurrencyModel } from './models/currency.model';
-import { FinancialTypeModel } from './models/financial-type.model';
+
 
 @Injectable()
 export class ExchangeService {
@@ -20,19 +20,15 @@ export class ExchangeService {
           model: FinancialModel,
           as: 'sourceFinancial',
           required: true,
-          attributes: { exclude: ['id', 'financialTypeId', 'currencyId'] },
+          attributes: { exclude: ['id', 'currencyId'] },
         },
         {
           model: FinancialModel,
           as: 'targetFinancial',
           required: true,
-          attributes: { exclude: ['id', 'financialTypeId', 'currencyId'] },
+          attributes: { exclude: ['id', 'currencyId'] },
           include: [
-            {
-              model: FinancialTypeModel,
-              required: true,
-              as: 'type',
-            },
+  
           ],
         },
         {
@@ -40,18 +36,40 @@ export class ExchangeService {
           as: 'courseExchange',
           required: true,
           attributes: {
-            exclude: ['id', 'firstCurrencyId', 'secondCurrencyId'],
+            exclude: ['id', 'targetCurrencyId'],
           },
           include: [
             {
               model: CurrencyModel,
-              as: 'firstCurrency',
+              as: 'sourceCurrency',
               required: true,
               attributes: { exclude: ['id'] },
             },
             {
               model: CurrencyModel,
-              as: 'secondCurrency',
+              as: 'targetCurrency',
+              required: true,
+              attributes: { exclude: ['id'] },
+            },
+          ],
+        },
+        {
+          model: CourseExchangeModel,
+          as: 'displayedCourseExchange',
+          required: true,
+          attributes: {
+            exclude: ['id', 'targetCurrencyId'],
+          },
+          include: [
+            {
+              model: CurrencyModel,
+              as: 'sourceCurrency',
+              required: true,
+              attributes: { exclude: ['id'] },
+            },
+            {
+              model: CurrencyModel,
+              as: 'targetCurrency',
               required: true,
               attributes: { exclude: ['id'] },
             },
@@ -74,7 +92,7 @@ export class ExchangeService {
     type?: string,
   ): Promise<ExchangeModel[]> {
     const condition = id ? { sourceFinancialId: id } : {};
-    if (type) condition['$targetFinancial.type.type$'] = type;
+    if (type) condition['$targetFinancial.type$'] = type;
     return await this.exchangeModel.findAll({
       where: condition,
       include: [
@@ -82,28 +100,15 @@ export class ExchangeService {
           model: FinancialModel,
           as: 'sourceFinancial',
           required: true,
-          attributes: { exclude: ['financialTypeId', 'currencyId'] },
-          include: [
-            {
-              model: FinancialTypeModel,
-              as: 'type',
-              required: true,
-              attributes: ['type'],
-            },
-          ],
+          attributes: { exclude: ['currencyId'] },
         },
         {
           model: FinancialModel,
           as: 'targetFinancial',
           required: true,
-          attributes: { exclude: ['financialTypeId', 'currencyId'] },
+          attributes: { exclude: ['currencyId'] },
           include: [
-            {
-              model: FinancialTypeModel,
-              as: 'type',
-              required: true,
-              attributes: ['type'],
-            },
+  
           ],
         },
         {
@@ -111,18 +116,40 @@ export class ExchangeService {
           as: 'courseExchange',
           required: true,
           attributes: {
-            exclude: ['id', 'firstCurrencyId', 'secondCurrencyId'],
+            exclude: ['id', 'targetCurrencyId'],
           },
           include: [
             {
               model: CurrencyModel,
-              as: 'firstCurrency',
+              as: 'sourceCurrency',
               required: true,
               attributes: { exclude: ['id'] },
             },
             {
               model: CurrencyModel,
-              as: 'secondCurrency',
+              as: 'targetCurrency',
+              required: true,
+              attributes: { exclude: ['id'] },
+            },
+          ],
+        },
+        {
+          model: CourseExchangeModel,
+          as: 'displayedCourseExchange',
+          required: true,
+          attributes: {
+            exclude: ['id', 'targetCurrencyId'],
+          },
+          include: [
+            {
+              model: CurrencyModel,
+              as: 'sourceCurrency',
+              required: true,
+              attributes: { exclude: ['id'] },
+            },
+            {
+              model: CurrencyModel,
+              as: 'targetCurrency',
               required: true,
               attributes: { exclude: ['id'] },
             },
