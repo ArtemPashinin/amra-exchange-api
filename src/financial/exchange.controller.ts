@@ -15,6 +15,8 @@ import { claimValidationSchema } from './validators/schemas/claim-validation.sch
 import { UserService } from 'src/user/user.service';
 import { TelegramBot } from 'src/bot/bot.service';
 import { createClaimMessage } from 'src/bot/utils/create-claim-message';
+import { CurrencyExchangeService } from './cyrrency-exchange.service';
+import { CourseExchangeModel } from './models/currency-exchange.model';
 
 @Controller('exchange')
 export class ExchangeController {
@@ -22,6 +24,7 @@ export class ExchangeController {
     private readonly exchangeService: ExchangeService,
     private readonly userServise: UserService,
     private readonly telegramBot: TelegramBot,
+    private readonly currencyExchangeService: CurrencyExchangeService,
   ) {}
 
   @Get()
@@ -41,7 +44,7 @@ export class ExchangeController {
   @Post()
   async createClaim(
     @Body(new ClaimValidationPipe(claimValidationSchema)) body: ICreateClaimDto,
-  ): Promise<void> {
+  ): Promise<number> {
     const claimMessage = createClaimMessage(body);
     const user = await this.userServise.findOne(body.user.tgUserId);
 
@@ -56,5 +59,13 @@ export class ExchangeController {
       await this.telegramBot.sendMessageToTopic(claimMessage, topicId);
     }
     await this.telegramBot.sendMessageToUser(body.user.tgUserId, claimMessage);
+    return 200;
+  }
+
+  @Get('rub-currency/:id')
+  public async getRubCurrency(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CourseExchangeModel> {
+    return await this.currencyExchangeService.findCurrencyToRub(id);
   }
 }

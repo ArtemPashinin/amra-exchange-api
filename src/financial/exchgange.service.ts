@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ExchangeModel } from './models/financial-exchange.model';
 import { FinancialModel } from './models/financial.model';
-import { CourseExchangeModel } from './models/cyrrency-exchange.model';
+import { CourseExchangeModel } from './models/currency-exchange.model';
 import { CurrencyModel } from './models/currency.model';
-
 
 @Injectable()
 export class ExchangeService {
@@ -27,9 +26,7 @@ export class ExchangeService {
           as: 'targetFinancial',
           required: true,
           attributes: { exclude: ['id', 'currencyId'] },
-          include: [
-  
-          ],
+          include: [],
         },
         {
           model: CourseExchangeModel,
@@ -107,16 +104,14 @@ export class ExchangeService {
           as: 'targetFinancial',
           required: true,
           attributes: { exclude: ['currencyId'] },
-          include: [
-  
-          ],
+          include: [],
         },
         {
           model: CourseExchangeModel,
           as: 'courseExchange',
           required: true,
           attributes: {
-            exclude: ['id', 'targetCurrencyId'],
+            exclude: ['id'],
           },
           include: [
             {

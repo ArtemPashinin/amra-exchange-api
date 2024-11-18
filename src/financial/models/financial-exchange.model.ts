@@ -10,7 +10,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { FinancialModel } from './financial.model';
-import { CourseExchangeModel } from './cyrrency-exchange.model';
+import { CourseExchangeModel } from './currency-exchange.model';
 
 @Table({ tableName: 'Exchange', timestamps: false })
 export class ExchangeModel extends Model {
