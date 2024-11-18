@@ -23,13 +23,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         timestamp: new Date().toISOString(),
         path: request.url,
       });
-
-      const clientIp = request.ip;
-      const userAgent = request.headers['user-agent'];
-      console.log(exception);
-      this.telegramBot.sendErrorLog(
-        `Exception: ${exception}\nClient IP: ${clientIp}\nUser Agent: ${userAgent}`,
-      );
     }
+    this.telegramBot.sendErrorLog(exception);
   }
 }
