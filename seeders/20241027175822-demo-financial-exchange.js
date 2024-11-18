@@ -391,9 +391,7 @@ module.exports = {
       //   exchangeRateId: 6,
       //   displayedExchangeRateId: 7,
       // },
-
       // -CASHRUB-
-
       // {
       //   sourceFinancialId: 16,
       //   targetFinancialId: 11,
@@ -412,9 +410,7 @@ module.exports = {
       //   exchangeRateId: 6,
       //   displayedExchangeRateId: 7,
       // },
-
       // -USDTTRC20-
-
       // {
       //   sourceFinancialId: 10,
       //   targetFinancialId: 1,
@@ -487,9 +483,7 @@ module.exports = {
       //   exchangeRateId: 7,
       //   displayedExchangeRateId: 7,
       // },
-
       // -BTC-
-
       // {
       //   sourceFinancialId: 13,
       //   targetFinancialId: 1,
@@ -556,9 +550,7 @@ module.exports = {
       //   exchangeRateId: 23,
       //   displayedExchangeRateId: 23,
       // },
-
       // -ETH-
-
       // {
       //   sourceFinancialId: 14,
       //   targetFinancialId: 1,
@@ -625,75 +617,73 @@ module.exports = {
       //   exchangeRateId: 25,
       //   displayedExchangeRateId: 25,
       // },
-
       // -TONCOIN-
-
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 1,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 2,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 3,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 4,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 5,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 6,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 7,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 8,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 9,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 16,
-        exchangeRateId: 13,
-        displayedExchangeRateId: 13,
-      },
-      {
-        sourceFinancialId: 15,
-        targetFinancialId: 11,
-        exchangeRateId: 29,
-        displayedExchangeRateId: 29,
-      },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 1,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 2,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 3,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 4,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 5,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 6,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 7,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 8,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 9,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 16,
+      //   exchangeRateId: 13,
+      //   displayedExchangeRateId: 13,
+      // },
+      // {
+      //   sourceFinancialId: 15,
+      //   targetFinancialId: 11,
+      //   exchangeRateId: 29,
+      //   displayedExchangeRateId: 29,
+      // },
     ]);
 
     console.log('asd');

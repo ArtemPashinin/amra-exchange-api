@@ -45,12 +45,11 @@ export class AdminComposer implements OnModuleInit {
 
   private async copyMessageToUser(ctx: Context): Promise<void> {
     const { message_thread_id: topicId, message_id: messageId } = ctx.message;
-    console.log('copied');
-    // const user = await this.userService.findByTopicId(topicId);
-    // await ctx.api.copyMessage(
-    //   user.tg_user_id,
-    //   this.telegramBot.getMainGroupId(),
-    //   messageId,
-    // );
+    const user = await this.userService.findByTopicId(topicId);
+    await ctx.api.copyMessage(
+      user.tg_user_id,
+      this.telegramBot.getMainGroupId(),
+      messageId,
+    );
   }
 }
