@@ -19,6 +19,9 @@ export class TelegramBot {
       'ERROR_LOG_CHAT_ID',
     );
     this.bot = new Bot(configService.get<string>('BOT_TOKEN'));
+    this.bot.catch((error) => {
+      this.bot.api.sendMessage(this.errorLogChatId, JSON.stringify(error));
+    });
   }
 
   async onApplicationBootstrap() {
