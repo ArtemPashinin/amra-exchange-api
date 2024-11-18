@@ -25,6 +25,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       });
     }
     console.log(exception);
-    this.telegramBot.sendErrorLog('This:', exception);
+    this.telegramBot.sendErrorLog(`This: ${exception}`);
   }
 }
