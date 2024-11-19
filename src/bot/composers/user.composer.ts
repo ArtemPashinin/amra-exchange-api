@@ -1,12 +1,14 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Composer, Context } from 'grammy';
+import { Composer, Context, InlineKeyboard } from 'grammy';
 import { TelegramBot } from '../bot.service';
 import { UserService } from 'src/user/user.service';
 import { ChatType } from '../enums/chat-types.enum';
+import { createWelcomeMessage } from '../utils/create-welcome-message';
 
 @Injectable()
 export class UserComposer implements OnModuleInit {
   private readonly composer = new Composer<Context>();
+  private openWebAppButton: InlineKeyboard;
 
   constructor(
     private readonly telegramBot: TelegramBot,
@@ -14,6 +16,7 @@ export class UserComposer implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    this.openWebAppButton = new InlineKeyboard().webApp('Обменять валюту', this.telegramBot.getWebAppInfo())
     this.registerHandlers();
     this.telegramBot.getBot().chatType(ChatType.PRIVATE).use(this.composer);
   }
@@ -29,6 +32,10 @@ export class UserComposer implements OnModuleInit {
       tg_user_id: userId,
       tg_username: userName,
     });
+    await ctx.reply(
+    createWelcomeMessage(ctx.from.first_name),
+      { reply_markup: this.openWebAppButton},
+    );
     await ctx.deleteMessage();
   }
 
