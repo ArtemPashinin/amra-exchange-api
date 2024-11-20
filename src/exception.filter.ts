@@ -3,15 +3,17 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { GrammyError } from 'grammy';
 import { TelegramBot } from './bot/bot.service';
 import { Request, Response } from 'express';
+import { timestamp } from 'rxjs';
 
 @Catch(HttpException, GrammyError)
 export class HttpExceptionFilter implements ExceptionFilter {
   constructor(private readonly telegramBot: TelegramBot) {}
-  catch(exception: any, host: ArgumentsHost) {
+  catch(exception: HttpException | GrammyError, host: ArgumentsHost) {
     if (exception instanceof HttpException) {
       const ctx = host.switchToHttp();
       const response = ctx.getResponse<Response>();
@@ -22,6 +24,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
         statusCode: status,
         timestamp: new Date().toISOString(),
         path: request.url,
+      });
+    }
+    if (exception instanceof GrammyError) {
+      const ctx = host.switchToHttp();
+      const response = ctx.getResponse<Response>();
+      response.status(HttpStatus.FORBIDDEN).json({
+        statusCode: HttpStatus.FORBIDDEN,
+        timestamp: new Date().toISOString(),
       });
     }
     this.telegramBot.sendErrorLog(exception);

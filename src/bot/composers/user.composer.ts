@@ -16,7 +16,10 @@ export class UserComposer implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    this.openWebAppButton = new InlineKeyboard().webApp('Обменять валюту', this.telegramBot.getWebAppInfo())
+    this.openWebAppButton = new InlineKeyboard().webApp(
+      'Обменять валюту',
+      this.telegramBot.getWebAppInfo(),
+    );
     this.registerHandlers();
     this.telegramBot.getBot().chatType(ChatType.PRIVATE).use(this.composer);
   }
@@ -32,10 +35,9 @@ export class UserComposer implements OnModuleInit {
       tg_user_id: userId,
       tg_username: userName,
     });
-    await ctx.reply(
-    createWelcomeMessage(ctx.from.first_name),
-      { reply_markup: this.openWebAppButton},
-    );
+    await ctx.reply(createWelcomeMessage(ctx.from.first_name), {
+      reply_markup: this.openWebAppButton,
+    });
     await ctx.deleteMessage();
   }
 

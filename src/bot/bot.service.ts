@@ -10,7 +10,7 @@ export class TelegramBot {
   private bot: Bot;
   private mainGroupId: string | number;
   private errorLogChatId: string | number;
-  private webAppInfo: WebAppInfo
+  private webAppInfo: WebAppInfo;
 
   constructor(
     private readonly configService: ConfigService,
@@ -20,7 +20,7 @@ export class TelegramBot {
     this.errorLogChatId = configService.get<number | string>(
       'ERROR_LOG_CHAT_ID',
     );
-    this.webAppInfo = {url: configService.get<string>('WEBAPP_URL')};
+    this.webAppInfo = { url: configService.get<string>('WEBAPP_URL') };
     this.bot = new Bot(configService.get<string>('BOT_TOKEN'));
     this.bot.catch((error) => {
       this.bot.api.sendMessage(this.errorLogChatId, JSON.stringify(error));
