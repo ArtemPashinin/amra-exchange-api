@@ -52,13 +52,14 @@ export class ExchangeController {
       user?.tg_topic_id ||
       (await this.telegramBot.createAndSaveTopic(body.user));
 
+    await this.telegramBot.sendMessageToUser(body.user.tgUserId, claimMessage);
     try {
       await this.telegramBot.sendMessageToTopic(claimMessage, topicId);
     } catch (err) {
       topicId = await this.telegramBot.createAndSaveTopic(body.user);
       await this.telegramBot.sendMessageToTopic(claimMessage, topicId);
     }
-    await this.telegramBot.sendMessageToUser(body.user.tgUserId, claimMessage);
+
     return 200;
   }
 
