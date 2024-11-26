@@ -28,18 +28,18 @@ export class ExchangeModel extends Model {
   sourceFinancial!: FinancialModel;
 
   @ForeignKey(() => FinancialModel)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   targetFinancialId!: number;
 
   @BelongsTo(() => FinancialModel, 'targetFinancialId')
   targetFinancial!: FinancialModel;
 
   @ForeignKey(() => CourseExchangeModel)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   exchangeRateId!: number;
 
   @ForeignKey(() => CourseExchangeModel)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   displayedExchangeRateId!: number;
 
   @BelongsTo(() => CourseExchangeModel, 'displayedExchangeRateId')

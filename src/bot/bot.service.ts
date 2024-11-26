@@ -4,6 +4,8 @@ import { Bot } from 'grammy';
 import { ForumTopic } from 'grammy/types';
 import { ICreateForumTopicDto } from './interfaces/dto/create-forum-topic.dto';
 import { UserService } from 'src/user/user.service';
+import { ITgUserDto } from 'src/financial/interfaces/dto/user.dto';
+import { UserModel } from 'src/user/models/user.model';
 
 @Injectable()
 export class TelegramBot {
@@ -54,28 +56,41 @@ export class TelegramBot {
   }
 
   public async createAndSaveTopic(user: {
-    userName: string;
-    tgUserId: number;
+    tg_username: string;
+    tg_user_id: number;
   }) {
     const { message_thread_id: topicId } = await this.createTopic(
-      user.userName,
+      user.tg_username,
     );
 
-    const userExists = await this.userService.findOne(user.tgUserId);
+    const userExists = await this.userService.findOne(user.tg_user_id);
     if (!userExists) {
       await this.userService.createAndUpdateOne({
-        tg_user_id: user.tgUserId,
-        tg_username: user.userName,
+        tg_user_id: user.tg_user_id,
+        tg_username: user.tg_username,
         tg_topic_id: topicId,
       });
     } else {
       await this.userService.createAndUpdateOne({
-        tg_user_id: user.tgUserId,
+        tg_user_id: user.tg_user_id,
         tg_topic_id: topicId,
       });
     }
 
     return topicId;
+  }
+
+  public async createClaim(user: UserModel, claimMessage: string) {
+    let topicId = user?.tg_topic_id || (await this.createAndSaveTopic(user));
+
+    try {
+      await this.sendMessageToTopic(claimMessage, topicId);
+    } catch (err) {
+      topicId = await this.createAndSaveTopic(user);
+      await this.sendMessageToTopic(claimMessage, topicId);
+    }
+    await this.sendMessageToUser(user.tg_user_id, claimMessage);
+    return 200;
   }
 
   public async sendErrorLog(error): Promise<void> {

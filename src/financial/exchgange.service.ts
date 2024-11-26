@@ -31,7 +31,7 @@ export class ExchangeService {
         {
           model: CourseExchangeModel,
           as: 'courseExchange',
-          required: true,
+          required: false,
           attributes: {
             exclude: ['id', 'targetCurrencyId'],
           },
@@ -53,7 +53,7 @@ export class ExchangeService {
         {
           model: CourseExchangeModel,
           as: 'displayedCourseExchange',
-          required: true,
+          required: false,
           attributes: {
             exclude: ['id', 'targetCurrencyId'],
           },
@@ -109,7 +109,7 @@ export class ExchangeService {
         {
           model: CourseExchangeModel,
           as: 'courseExchange',
-          required: true,
+          required: false,
           attributes: {
             exclude: ['id'],
           },
@@ -131,7 +131,7 @@ export class ExchangeService {
         {
           model: CourseExchangeModel,
           as: 'displayedCourseExchange',
-          required: true,
+          required: false,
           attributes: {
             exclude: ['id', 'targetCurrencyId'],
           },

@@ -1,8 +1,8 @@
 import { IFinancialDto } from './financial.dto';
 import { ITgUserDto } from './user.dto';
 
-export interface ICreateClaimDto {
+export interface ICreateForeignClaimDto {
   sourceFinancial: IFinancialDto;
-  targetFinancial: IFinancialDto;
+  targetFinancialName: string;
   user: ITgUserDto;
 }

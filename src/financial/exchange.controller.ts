@@ -14,9 +14,15 @@ import { ClaimValidationPipe } from './validators/claim-validation.pipe';
 import { claimValidationSchema } from './validators/schemas/claim-validation.schema';
 import { UserService } from 'src/user/user.service';
 import { TelegramBot } from 'src/bot/bot.service';
-import { createClaimMessage } from 'src/bot/utils/create-claim-message';
+import {
+  createClaimMessage,
+  createForeignClaimMessage,
+} from 'src/bot/utils/create-claim-message';
 import { CurrencyExchangeService } from './cyrrency-exchange.service';
 import { CourseExchangeModel } from './models/currency-exchange.model';
+import { ForeignClaimValidationPipe } from './validators/foreign-claim-validation.pipe';
+import { ICreateForeignClaimDto } from './interfaces/dto/create-foreign-claim.dto';
+import { foreignClaimValidationSchema } from './validators/schemas/foreign-claim-validation.schema';
 
 @Controller('exchange')
 export class ExchangeController {
@@ -47,18 +53,18 @@ export class ExchangeController {
   ): Promise<number> {
     const claimMessage = createClaimMessage(body);
     const user = await this.userServise.findOne(body.user.tgUserId);
+    await this.telegramBot.createClaim(user, claimMessage);
+    return 200;
+  }
 
-    let topicId =
-      user?.tg_topic_id ||
-      (await this.telegramBot.createAndSaveTopic(body.user));
-
-    try {
-      await this.telegramBot.sendMessageToTopic(claimMessage, topicId);
-    } catch (err) {
-      topicId = await this.telegramBot.createAndSaveTopic(body.user);
-      await this.telegramBot.sendMessageToTopic(claimMessage, topicId);
-    }
-    await this.telegramBot.sendMessageToUser(body.user.tgUserId, claimMessage);
+  @Post('foreign')
+  async createForeignClaim(
+    @Body(new ForeignClaimValidationPipe(foreignClaimValidationSchema))
+    body: ICreateForeignClaimDto,
+  ): Promise<number> {
+    const claimMessage = createForeignClaimMessage(body);
+    const user = await this.userServise.findOne(body.user.tgUserId);
+    await this.telegramBot.createClaim(user, claimMessage);
     return 200;
   }
 
