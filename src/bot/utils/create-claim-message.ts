@@ -12,6 +12,6 @@ export function createForeignClaimMessage(
   data: ICreateForeignClaimDto,
 ): string {
   return `Заявка ${data.sourceFinancial.financialName} ➡️ ${data.targetFinancialName}
-  Сумма ${data.sourceFinancial.financialName}: ${data.sourceFinancial.amount}
-  Время ${new Date()}`;
+Сумма ${data.sourceFinancial.financialName}: ${data.sourceFinancial.amount}
+Время ${new Date()}`;
 }
