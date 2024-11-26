@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Bot } from 'grammy';
-import { ForumTopic } from 'grammy/types';
+import { ForumTopic, WebAppInfo } from 'grammy/types';
 import { ICreateForumTopicDto } from './interfaces/dto/create-forum-topic.dto';
 import { UserService } from 'src/user/user.service';
 import { ITgUserDto } from 'src/financial/interfaces/dto/user.dto';
@@ -12,6 +12,8 @@ export class TelegramBot {
   private bot: Bot;
   private mainGroupId: string | number;
   private errorLogChatId: string | number;
+  private webAppInfo: WebAppInfo;
+
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UserService,
@@ -20,6 +22,7 @@ export class TelegramBot {
     this.errorLogChatId = configService.get<number | string>(
       'ERROR_LOG_CHAT_ID',
     );
+    this.webAppInfo = { url: configService.get<string>('WEBAPP_URL') };
     this.bot = new Bot(configService.get<string>('BOT_TOKEN'));
     this.bot.catch((error) => {
       this.bot.api.sendMessage(this.errorLogChatId, JSON.stringify(error));
@@ -36,6 +39,10 @@ export class TelegramBot {
 
   public getMainGroupId(): string | number {
     return this.mainGroupId;
+  }
+
+  public getWebAppInfo(): WebAppInfo {
+    return this.webAppInfo;
   }
 
   public async sendMessageToUser(userId: number, text: string): Promise<void> {
