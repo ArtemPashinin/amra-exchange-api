@@ -13,7 +13,7 @@ export class ExchangeService {
   ) {}
 
   async findAll(): Promise<ExchangeModel[]> {
-    return await this.exchangeModel.findAll({
+    const exchanges = await this.exchangeModel.findAll({
       include: [
         {
           model: FinancialModel,
@@ -27,6 +27,7 @@ export class ExchangeService {
           required: true,
           attributes: { exclude: ['id', 'currencyId'] },
           include: [],
+          where: { type: 'криптовалюта' },
         },
         {
           model: CourseExchangeModel,
@@ -74,14 +75,18 @@ export class ExchangeService {
         },
       ],
       attributes: {
-        exclude: [
-          'id',
-          'sourceFinancialId',
-          'targetFinancialId',
-          'exchangeRateId',
-        ],
+        exclude: ['sourceFinancialId', 'targetFinancialId', 'exchangeRateId'],
       },
     });
+    const exchangeIds = exchanges.map((exchange) => exchange.id);
+
+    // Обновите все записи с помощью bulkUpdate
+    await this.exchangeModel.update(
+      { priority: 2 },
+      { where: { id: exchangeIds } },
+    );
+
+    return exchanges;
   }
 
   public async finadAllById(
@@ -159,6 +164,7 @@ export class ExchangeService {
           'exchangeRateId',
         ],
       },
+      order: [['priority', 'ASC']],
     });
   }
 }

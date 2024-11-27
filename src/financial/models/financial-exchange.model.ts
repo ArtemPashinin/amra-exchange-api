@@ -47,4 +47,7 @@ export class ExchangeModel extends Model {
 
   @BelongsTo(() => CourseExchangeModel, 'exchangeRateId')
   courseExchange!: CourseExchangeModel;
+
+  @Column({ type: DataType.INTEGER })
+  priority!: number;
 }

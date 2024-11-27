@@ -33,10 +33,10 @@ export class ExchangeController {
     private readonly currencyExchangeService: CurrencyExchangeService,
   ) {}
 
-  @Get()
-  async findAll(): Promise<ExchangeModel[]> {
-    return await this.exchangeService.findAll();
-  }
+  // @Get()
+  // async findAll(): Promise<ExchangeModel[]> {
+  //   return await this.exchangeService.findAll();
+  // }
 
   @Get(':id?')
   async findAllForfirstFinancial(
