@@ -8,7 +8,6 @@ import {
 import { GrammyError } from 'grammy';
 import { TelegramBot } from './bot/bot.service';
 import { Request, Response } from 'express';
-import { timestamp } from 'rxjs';
 
 @Catch(HttpException, GrammyError)
 export class HttpExceptionFilter implements ExceptionFilter {
