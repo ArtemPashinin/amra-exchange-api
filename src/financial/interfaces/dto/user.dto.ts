@@ -1,4 +1,4 @@
 export interface ITgUserDto {
-  userName: string;
+  userName?: string;
   tgUserId: number;
 }
