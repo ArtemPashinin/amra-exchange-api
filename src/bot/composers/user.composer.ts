@@ -35,7 +35,7 @@ export class UserComposer implements OnModuleInit {
       tg_user_id: userId,
       tg_username: userName,
     });
-    await ctx.reply(createWelcomeMessage(ctx.from.first_name), {
+    await ctx.reply(createWelcomeMessage(ctx.from.first_name || userName), {
       reply_markup: this.openWebAppButton,
     });
     await ctx.deleteMessage();

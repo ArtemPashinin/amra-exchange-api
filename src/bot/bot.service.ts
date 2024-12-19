@@ -68,7 +68,7 @@ export class TelegramBot {
     tg_user_id: number;
   }) {
     const { message_thread_id: topicId } = await this.createTopic(
-      user.tg_username || user.tg_user_id.toString(),
+      user.tg_username,
     );
 
     const userExists = await this.userService.findOne(user.tg_user_id);
