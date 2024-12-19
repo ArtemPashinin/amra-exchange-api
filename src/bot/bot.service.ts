@@ -6,6 +6,7 @@ import { ICreateForumTopicDto } from './interfaces/dto/create-forum-topic.dto';
 import { UserService } from 'src/user/user.service';
 import { ITgUserDto } from 'src/financial/interfaces/dto/user.dto';
 import { UserModel } from 'src/user/models/user.model';
+import { number } from 'joi';
 
 @Injectable()
 export class TelegramBot {
@@ -63,11 +64,11 @@ export class TelegramBot {
   }
 
   public async createAndSaveTopic(user: {
-    tg_username: string;
+    tg_username?: string;
     tg_user_id: number;
   }) {
     const { message_thread_id: topicId } = await this.createTopic(
-      user.tg_username,
+      user.tg_username || user.tg_user_id.toString(),
     );
 
     const userExists = await this.userService.findOne(user.tg_user_id);
