@@ -4,6 +4,7 @@ import { TelegramBot } from '../bot.service';
 import { UserService } from 'src/user/user.service';
 import { ChatType } from '../enums/chat-types.enum';
 import { createWelcomeMessage } from '../utils/create-welcome-message';
+import { validateWorkTime } from '../utils/validate-work-time';
 
 @Injectable()
 export class UserComposer implements OnModuleInit {
@@ -78,6 +79,18 @@ export class UserComposer implements OnModuleInit {
           message_thread_id: messageThreadId,
         },
       );
+    }
+
+    if (!validateWorkTime()) {
+      setTimeout(async () => {
+        await ctx.reply(`🕙 Working hours: 10:00-19:00 🤝
+
+Спасибо за ваше обращение!  В настоящее время мы не работаем. Наши часы работы с 10:00 до 19:00. Мы обязательно свяжемся с вами, как только будем доступны. Спасибо, что выбрали нас! 🙌
+
+Thank you for your inquiry! We are currently unavailable. Our working hours are from 🕙 10:00 AM to 7:00 PM. We will get back to you as soon as possible. Thank you for choosing us! 🙌
+
+💫😴`);
+      }, 5);
     }
   }
 }
