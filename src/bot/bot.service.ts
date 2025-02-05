@@ -96,9 +96,9 @@ export class TelegramBot {
           userId,
           `🕙 Working hours: 10:00-19:00 🤝
 
-        Спасибо за ваше обращение!  В настоящее время мы не работаем. Наши часы работы с 10:00 до 19:00. Мы обязательно свяжемся с вами, как только будем доступны. Спасибо, что выбрали нас! 🙌
+Спасибо за ваше обращение!  В настоящее время мы не работаем. Наши часы работы с 10:00 до 19:00. Мы обязательно свяжемся с вами, как только будем доступны. Спасибо, что выбрали нас! 🙌
         
-        Thank you for your inquiry! We are currently unavailable. Our working hours are from 🕙 10:00 AM to 7:00 PM. We will get back to you as soon as possible. Thank you for choosing us! 🙌
+Thank you for your inquiry! We are currently unavailable. Our working hours are from 🕙 10:00 AM to 7:00 PM. We will get back to you as soon as possible. Thank you for choosing us! 🙌
         
         💫😴`,
         );
