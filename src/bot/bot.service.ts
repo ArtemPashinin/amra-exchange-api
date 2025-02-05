@@ -102,7 +102,7 @@ export class TelegramBot {
         
         💫😴`,
         );
-      }, 60);
+      }, 60000);
     }
   }
 
@@ -118,7 +118,7 @@ export class TelegramBot {
     await this.sendMessageToUser(user.tg_user_id, claimMessage);
     if (!validateWorkTime()) {
     }
-    await this.sendUnworkTimeMessage(user.tg_user_id)
+    await this.sendUnworkTimeMessage(user.tg_user_id);
     return 200;
   }
 
