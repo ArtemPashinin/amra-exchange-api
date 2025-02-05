@@ -7,6 +7,7 @@ import { UserService } from 'src/user/user.service';
 import { ITgUserDto } from 'src/financial/interfaces/dto/user.dto';
 import { UserModel } from 'src/user/models/user.model';
 import { number } from 'joi';
+import { validateWorkTime } from './utils/validate-work-time';
 
 @Injectable()
 export class TelegramBot {
@@ -88,6 +89,23 @@ export class TelegramBot {
     return topicId;
   }
 
+  public async sendUnworkTimeMessage(userId: string | number): Promise<void> {
+    if (!validateWorkTime()) {
+      setTimeout(async () => {
+        await this.bot.api.sendMessage(
+          userId,
+          `🕙 Working hours: 10:00-19:00 🤝
+
+        Спасибо за ваше обращение!  В настоящее время мы не работаем. Наши часы работы с 10:00 до 19:00. Мы обязательно свяжемся с вами, как только будем доступны. Спасибо, что выбрали нас! 🙌
+        
+        Thank you for your inquiry! We are currently unavailable. Our working hours are from 🕙 10:00 AM to 7:00 PM. We will get back to you as soon as possible. Thank you for choosing us! 🙌
+        
+        💫😴`,
+        );
+      }, 60);
+    }
+  }
+
   public async createClaim(user: UserModel, claimMessage: string) {
     let topicId = user?.tg_topic_id || (await this.createAndSaveTopic(user));
 
@@ -98,6 +116,9 @@ export class TelegramBot {
       await this.sendMessageToTopic(claimMessage, topicId);
     }
     await this.sendMessageToUser(user.tg_user_id, claimMessage);
+    if (!validateWorkTime()) {
+    }
+    await this.sendUnworkTimeMessage(user.tg_user_id)
     return 200;
   }
 
