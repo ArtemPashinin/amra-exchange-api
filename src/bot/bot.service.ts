@@ -100,7 +100,7 @@ export class TelegramBot {
         
 Thank you for your inquiry! We are currently unavailable. Our working hours are from 🕙 10:00 AM to 7:00 PM. We will get back to you as soon as possible. Thank you for choosing us! 🙌
         
-        💫😴`,
+💫😴`,
         );
       }, 60000);
     }
